@@ -12,7 +12,7 @@ module "asg" {
   vpc_security_group_ids = var.vpc_security_group_ids
   asg_name               = var.asg_name
   max_size               = var.max_size
-  min_size               = var.max_size
+  min_size               = var.min_size
   desired_capacity       = var.desired_capacity
 }
 

@@ -14,6 +14,7 @@ resource "aws_autoscaling_group" "cbc-asg" {
   health_check_type         = "ELB"
   desired_capacity          = var.desired_capacity
   vpc_zone_identifier       = slice(data.aws_subnets.default.ids,0,2)
+  default_instance_warmup   = 60
 
   launch_template {
     id      = aws_launch_template.cbc-lt.id
@@ -22,6 +23,7 @@ resource "aws_autoscaling_group" "cbc-asg" {
 }
 
 resource "aws_autoscaling_policy" "scale-out" {
+  depends_on = [ aws_autoscaling_group.cbc-asg ]
   name                   = "cbc-scale-out-policy"
   scaling_adjustment     = 1
   adjustment_type        = "ChangeInCapacity"
@@ -30,6 +32,7 @@ resource "aws_autoscaling_policy" "scale-out" {
 }
 
 resource "aws_autoscaling_policy" "scale-in" {
+  depends_on = [ aws_autoscaling_group.cbc-asg ]
   name                   = "cbc-scale-in-policy"
   scaling_adjustment     = -1
   adjustment_type        = "ChangeInCapacity"
