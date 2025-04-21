@@ -15,3 +15,11 @@ variable "max_size" {}
 variable "min_size" {}
 
 variable "desired_capacity" {}
+
+variable "region" {}
+
+variable "alarm_name" {}
+
+variable "scale_in" {}
+
+variable "scale_out" {}
